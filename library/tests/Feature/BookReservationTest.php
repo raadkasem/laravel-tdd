@@ -66,13 +66,13 @@ class BookReservationTest extends TestCase
 
         $book = Book::first();
 
-        $response = $this->patch('/books/'.$book->id, [
+        $response = $this->patch($book->path(), [
             'title' => 'New title',
             'author' => 'New author'
         ]);
         $this->assertEquals('New title', Book::first()->title);
         $this->assertEquals('New author', Book::first()->author);
-        $response->assertRedirect($book->path());
+        $response->assertRedirect($book->fresh()->path());
     }
 
 
